@@ -1,0 +1,132 @@
+<html>
+    <head>
+        <title>To-Do List</title>
+        <link rel="stylesheet" href="https://bootswatch.com/3/yeti/bootstrap.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Permanent+Marker">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="todo.css">
+        <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.0/annyang.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="intro col-12">
+                     <h1>Things To Do!!</h1>
+                </div>
+                <div class="border1">
+                    
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="helpText col-12">
+                    <p id="first">Enter the text in the input field to enter your items in the list</p>
+                    <p id="second">Click on item to mark it as completed</p>
+                    <p id="third">Click "X" to remove the item from the list</p>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-12">
+                    <input id="userInput" type="text" placeholder="Enter new item.." maxlength="30">
+                    <button id="enter"> <i class="fa fa-pencil"></i></button>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="listItems col-12">
+                     <ul class="col-12 offset-0 col-sm-8 offset-sm-2">
+
+                     </ul>
+                </div>
+            </div>
+        </div>
+        
+
+        
+        <script>
+
+
+if (annyang) {
+  var commands = {
+    
+    'write task *tag': function(variable) {
+
+      let input = document.getElementById("userInput");
+      input.value = variable;
+
+      var enterButton = document.getElementById("enter");
+        var ul = document.querySelector("ul"); 
+        var item = document.getElementsByTagName("li"); 
+
+        function createListElement(){
+    var li = document.createElement("li");
+    li.appendChild(document.createTextNode(input.value));
+    ul.appendChild(li);
+    input.value = "";
+
+    
+}
+function inputLength(){
+    return input.value.length;
+}
+
+function addListAfterClick(){
+    if(inputLength()>0){
+        createListElement();
+    }
+}
+
+addListAfterClick();
+
+},
+
+
+'mark task *tag': function(variable) {
+
+    var item = document.getElementsByTagName("li");
+    for( var i=0; i<item.length; i++){
+          if(item[i].textContent === variable){
+            item[i].classList.toggle("done");
+            break;
+          }
+    }
+},
+ 
+ 'delete task *tag': function(variable){
+    var item = document.getElementsByTagName("li");
+    for( var i=0; i<item.length; i++){
+          if(item[i].textContent === variable){
+            
+            item[i].classList.add("delete");
+            break;
+          }
+    }
+ }
+
+
+    };
+
+  
+  annyang.addCommands(commands);
+
+  
+  annyang.start();
+}
+
+</script>
+        
+    </body>
+</html>
+
+
+
+
+
+
+
+
